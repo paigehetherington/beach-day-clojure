@@ -33,8 +33,9 @@
                   [:option {:disabled "disabled" :selected "selected"} "Ability Level"]
                   [:option {:value "Beginner"} "Beginner"]
                   [:option {:value "Intermediate"} "Intermediate"]
-                  [:option {:value "Advanced"} "Advanced"]]
-                [:input {:type "number" :placeholder "Number of Waves" :name "number-of-waves"}]
+                  [:option {:value "Advanced"} "Advanced"]
+                  [:option {:value "Pro"} "Pro"]]
+                [:input {:type "number" :placeholder "Wave Score" :name "wave-score"}]
                 [:input {:type "text" :placeholder "Image URL" :name "image-url"}]
                 [:button {:type "Submit"} "Add surfer"]]
               [:form {:action "/get-surfer" :method "get"}
@@ -47,7 +48,7 @@
                 [:th "Country"]
                 [:th "Home Break"]
                 [:th "Ability Level"]
-                [:th "Number of Waves"]
+                [:th "Wave Score"]
                 [:th "Photo"]]
                 
                (map (fn [surfer]
@@ -57,7 +58,7 @@
                        [:td (:country surfer)] 
                        [:td (:home-break surfer)] 
                        [:td (:ability-level surfer)] 
-                       [:td (:number-of-waves surfer)]
+                       [:td (:wave-score surfer)]
                        [:td [:img {:src (:image-url surfer) :width 100 :height 100}]]])
                   (vals @surfers))]]]))
 
@@ -66,10 +67,10 @@
           board-type (get (:params request) "board-type")
           country (get (:params request) "country")
           home-break (get (:params request) "home-break")
-          number-of-waves (get (:params request) "number-of-waves")
+          wave-score (get (:params request) "wave-score")
           ability-level (get (:params request) "ability-level")
           image-url (get (:params request) "image-url")
-          surfer (hash-map :name name :board-type board-type :country country :home-break home-break :ability-level ability-level :number-of-waves number-of-waves :image-url image-url)]
+          surfer (hash-map :name name :board-type board-type :country country :home-break home-break :ability-level ability-level :wave-score wave-score :image-url image-url)]
       (swap! surfers assoc name surfer) ; surfers is HM
       (r/redirect "/")))
 
